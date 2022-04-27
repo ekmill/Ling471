@@ -46,14 +46,14 @@ how many times each word occurred in the text. It returns the token_counts dicti
 
 def countTokens(text):
     token_counts = {}
-    value = 0
     tokens = text.split()
     for word in tokens:
+        value = 1
         if word not in token_counts:
             token_counts[word] = value
         else:
             token_counts[word] = value + 1
-        return token_counts
+    return token_counts
 
 
 '''
