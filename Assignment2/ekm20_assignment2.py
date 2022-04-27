@@ -40,27 +40,26 @@ def cleanfilecontents(f):
 
 '''
 The below function takes a string as input, breaks it down into word tokens by space, and stores, in a dictionary table,
-how many times each word occurred in the text. It returns the dictionary table.
+how many times each word occurred in the text. It returns the token_counts dictionary table.
 '''
 
 
 def countTokens(text):
     token_counts = {}
-    # takes text and splits into tokens
-    tokens = text.split()
     value = 0
-    for tokens in text:
-        if tokens not in token_counts:
-            token_counts[tokens] = value
+    tokens = text.split()
+    for word in tokens:
+        if word not in token_counts:
+            token_counts[word] = value
         else:
-            token_counts[tokens] = value + 1
-    return token_counts
+            token_counts[word] = value + 1
+        return token_counts
 
 
 '''
-This silly "prediction function" will do the following "rudimentary data science":
+This prediction function will do the following rudimentary data science:
 If a review contains more of the word "good" than of the word "bad", 
-the function predicts "positive" (by returning a string "POSITIVE").
+the function predicts "positive" (by returning the string "POSITIVE").
 If it contains more of the word "bad" than of the word "good",
 the function predicts "negative". 
 If the count is equal (note that this includes zero count),
