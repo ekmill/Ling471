@@ -25,12 +25,8 @@ def cleanFileContents(f):
     # Observe the effect of the function by inspecting the debugger pane while stepping over.
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
 
-    # Now, we will want to replace all tabs with spaces, and also all occurrences of more than one
-    # space in a row with a single space. Review the regular expression slides/readings, and
-    # write a statement below which replaces all occurrences of one or more whitespace-group characters
-    # (that will include tabs) with a single space. You want the re.sub function.
-    # The shortcut for all whitespace characters is \s. The regex operator for "one or more" is +.
-    # Read re.sub()'s documentation to understand which argument goes where in the parentheses.
+    # replaces all tabs with spaces, and also all occurrences of more than one
+    # space in a row with a single space.
 
     # TODO: replace all tabs with spaces. check 1
     clean_text = str.replace('\s+', ' ' , text)
@@ -46,21 +42,24 @@ how many times each word occurred in the text. It returns the dictionary table.
 def countTokens(text):
     token_counts = {}
 
-    #takes text
+    #takes text and splits into tokens
 
-    tokens = split(text)
+    tokens = text.split()
 
-# Now, we need to iterate over each word in the list of tokens
-# (write a for loop over the list that split() returned).
 # Inside the loop, so, for each word, we will perform some conditional logic:
-# If the word is not yet stored in the dictionary
+# If the word is not yet stored in the dictionary that
 # we called "token_counts" as a key, we will store it there now,
 # and we will initialize the key's value to 0.
 # Outside that if statement: now that we are sure
 # the word is stored as a key, we will increment the count by 1.
 
+    value = 0
+
     for tokens in text:
-      token_counts +=1
+        if tokens not in token_counts:
+            token_counts[tokens] = value
+        else:
+            token_counts[tokens] = value + 1
     return token_counts
 
 
@@ -97,9 +96,7 @@ def predictSimplistic(counts):
 
 '''The main function is the entry point of the program.
 When debugging, if you want to start from the very beginning,
-start here. NB: Put the breakpoint not on the "def" line but below it.
-Do not modify this function; we already wrote it for you.
-You need to modify the functions which it calls, not the main() itself.
+start here.
 '''
 
 
