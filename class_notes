@@ -1,0 +1,37 @@
+4/25
+assignment 3 due 5/10 at midnight. extension of system in ass2 to work on many files instead of one.
+class presentation due end of class, data science paper analysis. 5-minute overview of paper in presentation
+    present virtually or in class
+acl- proceedings on comp ling, many peer reviewed
+jml can help too
+class: type or category of object found within  hierarchy
+instantiating a class: Constructor with a creator such as collections.OrderedDict(), which is assigned to a var
+    might use parameters or assume default values
+classes have attributes including vars and methods
+    accessed w/dot operator
+it is expected of devs to know how to read the documentation
+absolute path: exact location of file
+relative path specifies location of a file relative to folder currently being worked in
+dir path: no filename at the end, opp file path
+manipulating paths in python: pathlib module
+    instantiate path object from path class
+mac/linux: PosixPath result
+path.glob: will find files and directories in path that match a certain pattern
+can use a list comprehension to only get files; glob naturally returns a generator
+files = [x for x in p.glob...]
+    do this in terminal, as a list comprehension
+    if x.is_file(), add in
+*.docx or *.txt: will add all of some file type
+metrics: for evaluating NLP systems
+    accuracy, precision, recall
+        acc = correct/total
+        precision: true pos/all pos
+        precision is small SD
+        recall: true pos/true pos plus false neg
+        accuracy paradox: remember stats, type 1/2 errors
+    precision may be more important than recall or accuracy (or some other order) in some cases
+    precision and recall can be useful if looking at a particular class of reviews/files
+bias-variance tradeoff
+error analysis needed to be manual work with domain expertise. this helps with automation facilitation.
+for final presentation, discuss either what error analysis has been done and what could have been done
+    if you notice errors, run the errors yourself
