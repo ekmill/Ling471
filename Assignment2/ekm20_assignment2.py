@@ -34,7 +34,7 @@ def cleanfilecontents(f):
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
 
     # replaces all tabs with spaces, and also all occurrences of more than one space in a row with a single space.
-    clean_text = str.replace('\s+', ' ', text)
+    clean_text = re.sub('\s+', ' ', text)
     return clean_text
 
 
@@ -44,15 +44,16 @@ how many times each word occurred in the text. It returns the token_counts dicti
 '''
 
 
-def countTokens(text):
+def count_tokens(clean_text):
     token_counts = {}
-    tokens = text.split()
+    tokens = clean_text.split()
+    word_value = 1
     for word in tokens:
-        value = 1
         if word not in token_counts:
-            token_counts[word] = value
+            token_counts[word] = word_value
         else:
-            token_counts[word] = value + 1
+            token_counts.update(word=word_value + 1)
+    print (token_counts)
     return token_counts
 
 
@@ -60,8 +61,6 @@ def countTokens(text):
 This prediction function will do the following rudimentary data science:
 If a review contains more of the word "good" than of the word "bad", 
 the function predicts "positive" (by returning the string "POSITIVE").
-If it contains more of the word "bad" than of the word "good",
-the function predicts "negative". 
 If the count is equal (note that this includes zero count),
 the function cannot make a prediction and returns a string "NONE".
 '''
@@ -79,7 +78,8 @@ def predict_simplistic(token_counts):
         return NONE
 
 
-'''The main function is the entry point of the program.
+'''
+The main function is the entry point of the program.
 When debugging, if you want to start from the very beginning,
 start here.
 '''
@@ -94,7 +94,7 @@ def main(argv):
 
     # Now, we will count how many times each word occurs in the review.
     # We assign the output of the function to a new variable we call tokens_with_counts.
-    tokens_with_counts = countTokens(clean_text)
+    tokens_with_counts = count_tokens(clean_text)
 
     # Call the simplistic prediction function on the obtained counts.
     # Store the output of the function in a new variable called "prediction".
