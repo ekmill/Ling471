@@ -75,7 +75,7 @@ def predict_simplistic(token_counts):
     elif neg_count > pos_count:
         return NEG_REVIEW
     else:
-        return NO
+        return NONE
 
 
 '''
