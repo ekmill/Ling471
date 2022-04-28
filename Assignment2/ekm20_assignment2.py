@@ -47,12 +47,12 @@ how many times each word occurred in the text. It returns the token_counts dicti
 def count_tokens(clean_text):
     token_counts = {}
     tokens = clean_text.split()
-    word_value = 1
+    word_value = 0
     for word in tokens:
         if word not in token_counts:
             token_counts[word] = word_value
-        else:
-            token_counts.update(word=word_value + 1)
+        elif word in token_counts:
+            token_counts[word] +=1
     print (token_counts)
     return token_counts
 
