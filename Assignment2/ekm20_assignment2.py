@@ -24,7 +24,7 @@ NEG = 'bad'
 '''
 
 
-def cleanfilecontents(f):
+def clean_file_contents(f):
     # The below two lines open the file and read all the text
     # You do not need to modify the below two lines; they are already working as needed.
     with open(f, 'r') as f:
@@ -32,10 +32,11 @@ def cleanfilecontents(f):
 
     # The below line will clean the text of punctuation marks.
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
+    return clean_text
 
     # replaces all tabs with spaces, and also all occurrences of more than one space in a row with a single space.
-    clean_text = re.sub('\s+', ' ', text)
-    return clean_text
+    cleaner_text = re.sub('\s+', ' ', text)
+    return cleaner_text
 
 
 '''
@@ -52,8 +53,7 @@ def count_tokens(clean_text):
         if word not in token_counts:
             token_counts[word] = word_value
         elif word in token_counts:
-            token_counts[word] +=1
-    print (token_counts)
+            token_counts[word] += 1
     return token_counts
 
 
@@ -90,7 +90,7 @@ def main(argv):
     filename = argv[1]
 
     # Now, we will call cleanFileContents on the filename we were passed.
-    clean_text = cleanfilecontents(filename)
+    clean_text = clean_file_contents(filename)
 
     # Now, we will count how many times each word occurs in the review.
     # We assign the output of the function to a new variable we call tokens_with_counts.
@@ -102,6 +102,7 @@ def main(argv):
 
     # Finally, let's print out what we predicted.
     print("The prediction for file {} is {}".format(filename, prediction))
+
 
 if __name__ == "__main__":
     main(sys.argv)
