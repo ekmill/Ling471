@@ -8,7 +8,24 @@ import re
 # Import the string module to access its punctuation set
 import string
 
-#  these constants are return values for predictSimplistic and return end values.
+'''
+At the end of your program, output 5 numbers, one per line, rounded to 4 decimal points, in the exact following order:
+
+Overall system accuracy
+Precision wrt positive (training) reviews
+Recall wrt positive (training) reviews
+Precision wrt negative (training) reviews,
+Recall wrt positive (training) reviews.
+Do not output any text; we need just the numbers, for faster grading.
+expected output:
+0.2751
+0.5558
+0.3214
+0.8072
+0.2287
+'''
+
+#  these constants are return values for predict_simplistic and return end values.
 
 POS_REVIEW = "POSITIVE"
 NEG_REVIEW = "NEGATIVE"
@@ -17,16 +34,8 @@ POS = 'good'
 NEG = 'bad'
 
 
-'''
- The below function should be called on a file name.
- It should open the file, read its contents, and store it in a variable.
- Then it should remove punctuation marks and return the "cleaned" text.
-'''
-
-
-def clean_file_contents(f):
-    # The below two lines open the file and read all the text
-    # You do not need to modify the below two lines; they are already working as needed.
+# this method retrieves counts of good and bad, and returns what type of review it is.
+def predict_simplistic(f):
     with open(f, 'r') as f:
         text = f.read()
 
@@ -37,15 +46,6 @@ def clean_file_contents(f):
     # replaces all tabs with spaces, and also all occurrences of more than one space in a row with a single space.
     cleaner_text = re.sub('\s+', ' ', text)
     return cleaner_text
-
-
-'''
-The below function takes a string as input, breaks it down into word tokens by space, and stores, in a dictionary table,
-how many times each word occurred in the text. It returns the token_counts dictionary table.
-'''
-
-
-def count_tokens(clean_text):
     token_counts = {}
     tokens = clean_text.split()
     word_value = 0
@@ -55,19 +55,6 @@ def count_tokens(clean_text):
         elif word in token_counts:
             token_counts[word] += 1
     return token_counts
-
-
-'''
-This prediction function will do the following rudimentary data science:
-If a review contains more of the word "good" than of the word "bad", 
-the function predicts "positive" (by returning the string "POSITIVE").
-If the count is equal (note that this includes zero count),
-the function cannot make a prediction and returns a string "NONE".
-'''
-
-
-# this method retrieves counts of good and bad, and returns what type of review it is.
-def predict_simplistic(token_counts):
     pos_count = token_counts.get(POS, 0)
     neg_count = token_counts.get(NEG, 0)
     if pos_count > neg_count:
@@ -79,12 +66,10 @@ def predict_simplistic(token_counts):
 
 
 '''
-The main function is the entry point of the program.
-When debugging, if you want to start from the very beginning,
-start here.
+TODO (1)
+Refactor your assignment3.py program so that your main() function iterates over 
+all files in both train/pos and train/neg directories, outputting a prediction for each file.
 '''
-
-
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
     filename = argv[1]
