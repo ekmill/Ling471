@@ -60,19 +60,18 @@ Refactor your assignment3.py program so that your main() function iterates over
 all files in both train/pos and train/neg directories, outputting a prediction for each file.
 '''
 def main(argv):
-
     # The file that you will read should be passed as the argument to the program.
-    filename = argv[1]
+    dir = argv[1]
     pos = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/pos')
    # neg = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/neg')
-    for filename in pos():
+    for f in pos.iterdir():
         predict_simplistic(f)
    # for filename in neg():
     # Call the simplistic prediction function on the obtained counts.
-    prediction = predict_simplistic()
+    prediction = predict_simplistic(f)
 
     # Finally, let's print out what we predicted.
-    print("The prediction for file {} is {}".format(filename, prediction))
+    print("The prediction for file {} is {}".format(f, prediction))
 
 if __name__ == "__main__":
     main(sys.argv)
