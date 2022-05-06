@@ -1,3 +1,84 @@
+5/5
+bayes theorem and data frames in pandas
+trigram - set of 3 words
+tuesday covered condıtıonal probability, thank god i wasn't here
+time to do homework bc i took ap stats
+theorems must be provable
+p given a is prior probability, p (a given b) is posterior probability
+for practice later: answers were 7.8 and .7 percents
+(latter is joint probability)
+data frames notes:
+    very common in r, somewhat in python
+    columns in table, not all columns need the same type, but each must have one specific type
+    row=observation
+    columns each respect on e var
+    rows and columns can be treated as a row or column vector. a table can be a matrix.
+    pandas package in python gives data frame functionality. used a lot in ML.
+        doesn't always talk to other packages nicely
+        needs to be installed in pycharm (in python packages)
+    alt shift e allows execution of one line at a time
+    memorize import pandas as pd
+    numpy was used on tuesday (np)
+    numpyyyyyyyyyy
+    pandas.DataFrame(listname)
+    to deal with spreadsheets: var =  pd.read_csv(filename)
+    pandasdata.to_csv() moves dataframe to csv
+    next week: miller hall 301 across the quad
+    last days of lecture (5/24 and 26: matt at conference, class will happen virtually
+
+
+
+4/27
+probability and statistics methods
+good notes to consult for presentation
+overview of calc and linear algebra as they relate to NLP (today maximum likelihood estimation)
+what is true of a sample should be true of the represented population
+no distribution, no statistics
+ass 4 will probably focus on probability of a review being good (good if p is high)
+how do we assign numbers to dists?
+    conditional probability: p(y|x)
+    list assumptions
+    est probability of textual sequences
+    consider sample spaceŞ condıtonal probability calculation
+        p(l and t)/p(l)
+        important to bayes theorem (and ass4)
+    p adds to 1 for mutually exclusive events
+        and operator must be used for mutual exclusive events
+    give ranges where x range does something and y range does something else based off rand num generation
+    margınal probabılıtıes: condıtıonal probs ın tables to fınd margınal total statuses
+random module in py can generate from a list k times (random.choices (options split w commas))
+random.seed(total)- controls seed of number of times, not dependent on CG random total which can differ
+frequentist/empirical approach: x result times/total times
+computers generally have a max they are willing to calculate
+number heads = sum(rand.choices([o, 1])[0] == 1 for f in range (1000000/seed))
+heads.count(1)
+prob is more accurate as you approach infinity
+independent events don't depend on the past
+disjunction=logical or
+    or: add ps together; and: multiply ps together
+random variable: set of possible outcomes
+p1 = [lower set sep commas]
+p2 = [upper set sep commas]
+    or sum(x>2) for x in heads
+like vertical line rule, keys can only point to one value (also rel to a function)
+gaussian =  normal dist
+max likelihood estimation is alt to frequentist calculation
+    p(d) is the product of abstract theta values. theta value needs to maximize pd so we know most likely value.
+curve becomes flat at zero (tan or derivative)
+arg max = maximum
+    so we look for arg max p(theta)
+computers don't like to model small numbers. oft will give you zero in nlp
+    answer to this will be logarithms: from math import log
+    can use log(p(a)) in place of p(a) to get likelihood estimation
+    arg max of pd will be where arg max is for log pd.
+        can use sum of logs instead of product
+USE LN
+USE OTHER PEOPLES SOFTWARE FOR MLE
+relevance of coin flipping: many classifications, even in ling are binary in nature (mi?)
+    ex. stop aspiration, use of relativizers, lg detection
+    
+
+
 4/25
 assignment 3 due 5/10 at midnight. extension of system in ass2 to work on many files instead of one.
 class presentation due end of class, data science paper analysis. 5-minute overview of paper in presentation

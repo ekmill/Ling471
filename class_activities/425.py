@@ -1,6 +1,5 @@
-import pathlib
 
-classnotes.path = /Users/emma/PycharmProjects/Ling471/class_activities
-p = classnotes.path
-return p
+import random as rand
 
+heads = sum(rand.choices([0, 1])[0] == 1 for f in range(1000000))
+print(heads)
