@@ -1,12 +1,8 @@
 
-# Import the system module
-import sys
-
-# Import regular expressions module
 import re
-
-# Import the string module to access its punctuation set
 import string
+import sys
+import pathlib as pl
 
 '''
 At the end of your program, output 5 numbers, one per line, rounded to 4 decimal points, in the exact following order:
@@ -39,9 +35,9 @@ def predict_simplistic(f):
     with open(f, 'r') as f:
         text = f.read()
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
-    clean_text = re.sub('\s+', ' ', text)
+    clean_text = re.sub('\s+', ' ', clean_text)
     token_counts = {}
-    tokens = cleaner_text.split()
+    tokens = clean_text.split()
     word_value = 0
     for word in tokens:
         if word not in token_counts:
@@ -64,16 +60,19 @@ Refactor your assignment3.py program so that your main() function iterates over
 all files in both train/pos and train/neg directories, outputting a prediction for each file.
 '''
 def main(argv):
-    # The file that you will read should be passed as the argument to the program.
-    filename = argv[1]
 
+    # The file that you will read should be passed as the argument to the program.
+    f() = argv[1]
+    pos = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/pos')
+   # neg = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/neg')
+    for filename in pos():
+        predict_simplistic(f)
+   # for filename in neg():
     # Call the simplistic prediction function on the obtained counts.
-    # Store the output of the function in a new variable called "prediction".
-    prediction = predict_simplistic(f)
+    prediction = predict_simplistic()
 
     # Finally, let's print out what we predicted.
     print("The prediction for file {} is {}".format(filename, prediction))
-
 
 if __name__ == "__main__":
     main(sys.argv)
