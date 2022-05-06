@@ -32,6 +32,7 @@ NEG = 'bad'
 
 # this method retrieves counts of good and bad, and returns what type of review it is.
 def predict_simplistic(f):
+    f() = argv[1]
     with open(f, 'r') as f:
         text = f.read()
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
@@ -62,7 +63,7 @@ all files in both train/pos and train/neg directories, outputting a prediction f
 def main(argv):
 
     # The file that you will read should be passed as the argument to the program.
-    f() = argv[1]
+
     pos = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/pos')
    # neg = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/neg')
     for filename in pos():
