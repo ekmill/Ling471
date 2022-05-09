@@ -87,7 +87,7 @@ start here.
 
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
-    filename = argv[1]
+    filename = argv[x]
 
     # Now, we will call cleanFileContents on the filename we were passed.
     clean_text = clean_file_contents(filename)

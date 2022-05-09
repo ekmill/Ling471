@@ -2,8 +2,7 @@
 import re
 import string
 import sys
-import pathlib as pl
-
+from pathlib import Path
 '''
 At the end of your program, output 5 numbers, one per line, rounded to 4 decimal points, in the exact following order:
 
@@ -31,8 +30,9 @@ NEG = 'bad'
 
 
 # this method retrieves counts of good and bad, and returns what type of review it is.
-def predict_simplistic(f):
-    with open(f, 'r') as f:
+def predict_simplistic(dir):
+    with open(dir, 'r') as dir:
+        #add dir to f
         text = f.read()
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
     clean_text = re.sub('\s+', ' ', clean_text)
@@ -60,19 +60,18 @@ Refactor your assignment3.py program so that your main() function iterates over
 all files in both train/pos and train/neg directories, outputting a prediction for each file.
 '''
 def main(argv):
+    filename = argv[x]
     # The file that you will read should be passed as the argument to the program.
-    pos = Path()
-    pos = pos/Users/emma/Downloads/aclImdb/train/pos
-    neg = Path()
-    neg = neg/Users/emma/Downloads/aclImdb/train/neg
-    txt_files = list(x.glob(*.txt))
-    files = [x for x in txt_files]
+    pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
+    neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
+    pos_files = [x for x in pos.glob(*) if x.is_file]
+    neg_files = [x for x in neg.glob(*) if x.is_file]
    # for filename in neg():
     # Call the simplistic prediction function on the obtained counts.
     prediction = predict_simplistic(f)
 
     # Finally, print out what we predicted.
-    print("The prediction for file {} is {}".format(f, prediction))
+    print("The prediction for file {} is {}".format(filename, prediction))
 
 if __name__ == "__main__":
     main(sys.argv)
