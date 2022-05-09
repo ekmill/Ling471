@@ -31,9 +31,13 @@ NEG = 'bad'
 
 # this method retrieves counts of good and bad, and returns what type of review it is.
 def predict_simplistic(dir):
-    with open(dir, 'r') as dir:
-        #add dir to f
-        text = f.read()
+    pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
+    #neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
+    pos_file = [f for f in pos.glob('*') if f.is_file]
+    #neg_file = [f for f in neg.glob('*'a) if f.is_file]
+
+    with open(pos, 'r') as pos:
+        text = f.read(pos_file)
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
     clean_text = re.sub('\s+', ' ', clean_text)
     token_counts = {}
@@ -60,15 +64,11 @@ Refactor your assignment3.py program so that your main() function iterates over
 all files in both train/pos and train/neg directories, outputting a prediction for each file.
 '''
 def main(argv):
-    filename = argv[x]
     # The file that you will read should be passed as the argument to the program.
-    pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
-    neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
-    pos_files = [x for x in pos.glob(*) if x.is_file]
-    neg_files = [x for x in neg.glob(*) if x.is_file]
-   # for filename in neg():
+
+   for filename in pos():
     # Call the simplistic prediction function on the obtained counts.
-    prediction = predict_simplistic(f)
+    prediction = predict_simplistic(dir)
 
     # Finally, print out what we predicted.
     print("The prediction for file {} is {}".format(filename, prediction))
