@@ -38,30 +38,25 @@ def predict_simplistic(dir):
     for filename in pos_file:
         with open(filename, 'r') as f:
             text = f.read()
-    clean_text = text.translate(str.maketrans('', '', string.punctuation))
-    clean_text = re.sub('\s+', ' ', clean_text)
-    token_counts = {}
-    tokens = clean_text.split()
-    word_value = 0
-    for word in tokens:
-        if word not in token_counts:
-            token_counts[word] = word_value
-        elif word in token_counts:
-            token_counts[word] += 1
-    pos_count = token_counts.get(POS, 0)
-    neg_count = token_counts.get(NEG, 0)
-    if pos_count > neg_count:
-        print("The prediction for file {} is POS_REVIEW".format(filename))
-    elif neg_count > pos_count:
-        print("The prediction for file {} is NEG_REVIEW".format(filename))
-    else:
-        print("The prediction for file {} is NONE".format(filename))
+        clean_text = text.translate(str.maketrans('', '', string.punctuation))
+        clean_text = re.sub('\s+', ' ', clean_text)
+        token_counts = {}
+        tokens = clean_text.split()
+        word_value = 0
+        for word in tokens:
+            if word not in token_counts:
+                token_counts[word] = word_value
+            elif word in token_counts:
+                token_counts[word] += 1
+        pos_count = token_counts.get(POS, 0)
+        neg_count = token_counts.get(NEG, 0)
+        if pos_count > neg_count:
+            print("The prediction for file {} is POS_REVIEW".format(filename))
+        elif neg_count > pos_count:
+            print("The prediction for file {} is NEG_REVIEW".format(filename))
+        else:
+            print("The prediction for file {} is NONE".format(filename))
 
-'''
-TODO (1)
-Refactor your assignment3.py program so that your main() function iterates over 
-all files in both train/pos and train/neg directories, outputting a prediction for each file.
-'''
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
     prediction = predict_simplistic(dir)
