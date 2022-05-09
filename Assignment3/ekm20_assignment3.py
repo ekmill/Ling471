@@ -35,9 +35,9 @@ def predict_simplistic(dir):
     #neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
     pos_file = [f for f in pos.glob('*') if f.is_file]
     #neg_file = [f for f in neg.glob('*'a) if f.is_file]
-
-    with open(pos, 'r') as pos:
-        text = f.read(pos_file)
+    for filename in pos_file:
+        with open(pos, 'r') as f:
+            text = f.read(pos_file)
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
     clean_text = re.sub('\s+', ' ', clean_text)
     token_counts = {}
@@ -56,7 +56,7 @@ def predict_simplistic(dir):
         return NEG_REVIEW
     else:
         return NONE
-
+    print("The prediction for file {} is {}".format(filename, prediction))
 
 '''
 TODO (1)
@@ -65,13 +65,8 @@ all files in both train/pos and train/neg directories, outputting a prediction f
 '''
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
-
-   for filename in pos():
-    # Call the simplistic prediction function on the obtained counts.
     prediction = predict_simplistic(dir)
-
     # Finally, print out what we predicted.
-    print("The prediction for file {} is {}".format(filename, prediction))
 
 if __name__ == "__main__":
     main(sys.argv)
