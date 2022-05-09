@@ -36,8 +36,8 @@ def predict_simplistic(dir):
     pos_file = [f for f in pos.glob('*') if f.is_file]
     #neg_file = [f for f in neg.glob('*'a) if f.is_file]
     for filename in pos_file:
-        with open(pos, 'r') as f:
-            text = f.read(pos_file)
+        with open(filename, 'r') as f:
+            text = f.read()
     clean_text = text.translate(str.maketrans('', '', string.punctuation))
     clean_text = re.sub('\s+', ' ', clean_text)
     token_counts = {}
