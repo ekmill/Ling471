@@ -31,11 +31,14 @@ NEG = 'bad'
 
 # this method retrieves counts of good and bad, and returns what type of review it is.
 def predict_simplistic(dir):
-    pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
-    #neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
-    pos_file = [f for f in pos.glob('*') if f.is_file]
-    #neg_file = [f for f in neg.glob('*'a) if f.is_file]
-    for filename in pos_file:
+    train = Path('/Users/emma/Downloads/aclImdb/train')
+
+    # pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
+    # neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
+    # pos_file = [f for f in pos.glob('*') if f.is_file]
+    # neg_file = [f for f in neg.glob('*') if f.is_file]
+    training_file = [f for f in train.glob('*') if f.is_file()]
+    for filename in training_file:
         with open(filename, 'r') as f:
             text = f.read()
         clean_text = text.translate(str.maketrans('', '', string.punctuation))
@@ -57,10 +60,11 @@ def predict_simplistic(dir):
         else:
             print("The prediction for file {} is NONE".format(filename))
 
+
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
     prediction = predict_simplistic(dir)
-    # Finally, print out what we predicted.
+
 
 if __name__ == "__main__":
     main(sys.argv)
