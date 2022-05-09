@@ -61,16 +61,17 @@ all files in both train/pos and train/neg directories, outputting a prediction f
 '''
 def main(argv):
     # The file that you will read should be passed as the argument to the program.
-    dir = argv[1]
-    pos = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/pos')
-   # neg = pl.PosixPath('/Users/emma/Downloads/aclImdb/train/neg')
-    for f in pos.iterdir():
-        predict_simplistic(f)
+    pos = Path()
+    pos = pos/Users/emma/Downloads/aclImdb/train/pos
+    neg = Path()
+    neg = neg/Users/emma/Downloads/aclImdb/train/neg
+    txt_files = list(x.glob(*.txt))
+    files = [x for x in txt_files]
    # for filename in neg():
     # Call the simplistic prediction function on the obtained counts.
     prediction = predict_simplistic(f)
 
-    # Finally, let's print out what we predicted.
+    # Finally, print out what we predicted.
     print("The prediction for file {} is {}".format(f, prediction))
 
 if __name__ == "__main__":
