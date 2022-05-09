@@ -51,12 +51,11 @@ def predict_simplistic(dir):
     pos_count = token_counts.get(POS, 0)
     neg_count = token_counts.get(NEG, 0)
     if pos_count > neg_count:
-        return POS_REVIEW
+        print("The prediction for file {} is POS_REVIEW".format(filename))
     elif neg_count > pos_count:
-        return NEG_REVIEW
+        print("The prediction for file {} is NEG_REVIEW".format(filename))
     else:
-        return NONE
-    print("The prediction for file {} is {}".format(filename, prediction))
+        print("The prediction for file {} is NONE".format(filename))
 
 '''
 TODO (1)
