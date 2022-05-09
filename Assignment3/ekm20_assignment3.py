@@ -31,14 +31,32 @@ NEG = 'bad'
 
 # this method retrieves counts of good and bad, and returns what type of review it is.
 def predict_simplistic(dir):
-    train = Path('/Users/emma/Downloads/aclImdb/train')
-
-    # pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
-    # neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
-    # pos_file = [f for f in pos.glob('*') if f.is_file]
-    # neg_file = [f for f in neg.glob('*') if f.is_file]
-    training_file = [f for f in train.glob('*') if f.is_file()]
-    for filename in training_file:
+    pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
+    neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
+    pos_file = [f for f in pos.glob('*') if f.is_file]
+    neg_file = [f for f in neg.glob('*') if f.is_file]
+    for filename in pos_file:
+        with open(filename, 'r') as f:
+            text = f.read()
+        clean_text = text.translate(str.maketrans('', '', string.punctuation))
+        clean_text = re.sub('\s+', ' ', clean_text)
+        token_counts = {}
+        tokens = clean_text.split()
+        word_value = 0
+        for word in tokens:
+            if word not in token_counts:
+                token_counts[word] = word_value
+            elif word in token_counts:
+                token_counts[word] += 1
+        pos_count = token_counts.get(POS, 0)
+        neg_count = token_counts.get(NEG, 0)
+        if pos_count > neg_count:
+            print("The prediction for file {} is POS_REVIEW".format(filename))
+        elif neg_count > pos_count:
+            print("The prediction for file {} is NEG_REVIEW".format(filename))
+        else:
+            print("The prediction for file {} is NONE".format(filename))
+    for filename in neg_file:
         with open(filename, 'r') as f:
             text = f.read()
         clean_text = text.translate(str.maketrans('', '', string.punctuation))
