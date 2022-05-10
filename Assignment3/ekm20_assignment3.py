@@ -6,13 +6,6 @@ from pathlib import Path
 '''
 At the end of your program, output 5 numbers, one per line, rounded to 4 decimal points, in the exact following order:
 
-Overall system accuracy
-Precision wrt positive (training) reviews
-Recall wrt positive (training) reviews
-Precision wrt negative (training) reviews,
-Recall wrt positive (training) reviews.
-Do not output any text; we need just the numbers, for faster grading.
-expected output:
 0.2751
 0.5558
 0.3214
@@ -56,13 +49,10 @@ def predict_simplistic(dir):
         pos_count = token_counts.get(POS, 0)
         neg_count = token_counts.get(NEG, 0)
         if pos_count > neg_count:
-           # print("The prediction for file {} is POSITIVE".format(filename))
             true_pos += 1
         elif neg_count > pos_count:
-           # print("The prediction for file {} is NEGATIVE".format(filename))
             false_pos += 1
         else:
-           # print("The prediction for file {} is NONE".format(filename))
            flse += 1
     for filename in neg_file:
         with open(filename, 'r', encoding='utf-8') as f:
@@ -80,15 +70,18 @@ def predict_simplistic(dir):
         pos_count = token_counts.get(POS, 0)
         neg_count = token_counts.get(NEG, 0)
         if pos_count > neg_count:
-           # print("The prediction for file {} is POSITIVE".format(filename))
             false_neg += 1
         elif neg_count > pos_count:
-           # print("The prediction for file {} is NEGATIVE".format(filename))
             true_neg += 1
         else:
-           # print("The prediction for file {} is NONE".format(filename))
            flse += 1
+    accuracy = (true_pos + true_neg)/(true_pos + true_neg + false_pos + false_neg + flse)
+    pos_precision = true_pos/(true_pos + false_neg)
+    pos_recall = true_pos/(true_pos + false_pos)
+    neg_precision = true_neg/(true_neg + false_pos)
+    neg_recall = true_neg/(true_neg + false_neg)
     print(true_pos, true_neg, false_pos, false_neg, flse)
+    print(accuracy,pos_precision,pos_recall,neg_precision,neg_recall)
 
 def main(argv):
     filename = argv[1]
