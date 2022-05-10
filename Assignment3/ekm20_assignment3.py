@@ -81,8 +81,7 @@ def predict_simplistic(dir):
     pos_recall = true_pos/(true_pos + false_pos + nonepos)
     neg_precision = true_neg/(true_neg + false_pos)
     neg_recall = true_neg/(true_neg + false_neg + noneneg)
-    print(true_pos, true_neg, false_pos, false_neg, nonepos, noneneg)
-    print(accuracy,pos_precision,pos_recall,neg_precision,neg_recall)
+    print(round(accuracy, 4), round(pos_precision, 4), round(pos_recall, 4), round(neg_precision, 4), round(neg_recall, 4))
 
 def main(argv):
     filename = argv[1]
