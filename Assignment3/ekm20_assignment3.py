@@ -35,6 +35,7 @@ def predict_simplistic(dir):
     true_neg = 0
     false_pos = 0
     false_neg = 0
+    flse = 0
     pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
     neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
     pos_file = [f for f in pos.glob('*') if f.is_file]
@@ -46,7 +47,7 @@ def predict_simplistic(dir):
         clean_text = re.sub('\s+', ' ', clean_text)
         token_counts = {}
         tokens = clean_text.split()
-        word_value = 0
+        word_value = 1
         for word in tokens:
             if word not in token_counts:
                 token_counts[word] = word_value
@@ -59,10 +60,10 @@ def predict_simplistic(dir):
             true_pos += 1
         elif neg_count > pos_count:
            # print("The prediction for file {} is NEGATIVE".format(filename))
-            false_neg += 1
-       # else:
+            false_pos += 1
+        else:
            # print("The prediction for file {} is NONE".format(filename))
-         #   false_neg += 1
+           flse += 1
     for filename in neg_file:
         with open(filename, 'r', encoding='utf-8') as f:
             text = f.read()
@@ -70,7 +71,7 @@ def predict_simplistic(dir):
         clean_text = re.sub('\s+', ' ', clean_text)
         token_counts = {}
         tokens = clean_text.split()
-        word_value = 0
+        word_value = 1
         for word in tokens:
             if word not in token_counts:
                 token_counts[word] = word_value
@@ -80,14 +81,14 @@ def predict_simplistic(dir):
         neg_count = token_counts.get(NEG, 0)
         if pos_count > neg_count:
            # print("The prediction for file {} is POSITIVE".format(filename))
-            false_pos += 1
+            false_neg += 1
         elif neg_count > pos_count:
            # print("The prediction for file {} is NEGATIVE".format(filename))
             true_neg += 1
-       # else:
+        else:
            # print("The prediction for file {} is NONE".format(filename))
-          #  false_pos += 1
-    print(true_pos, true_neg, false_pos, false_neg)
+           flse += 1
+    print(true_pos, true_neg, false_pos, false_neg, flse)
 
 def main(argv):
     filename = argv[1]
