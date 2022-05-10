@@ -3,18 +3,8 @@ import re
 import string
 import sys
 from pathlib import Path
-'''
-At the end of your program, output 5 numbers, one per line, rounded to 4 decimal points, in the exact following order:
-
-0.2751
-0.5558
-0.3214
-0.8072
-0.2287
-'''
 
 #  these constants are return values for predict_simplistic and return end values.
-
 POS_REVIEW = "POSITIVE"
 NEG_REVIEW = "NEGATIVE"
 NONE = "NONE"
@@ -77,11 +67,16 @@ def predict_simplistic(dir):
         else:
            noneneg += 1
     accuracy = (true_pos + true_neg)/(true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
+    round(accuracy, 4)
     pos_precision = true_pos/(true_pos + false_neg)
+    round(pos_precision, 4)
     pos_recall = true_pos/(true_pos + false_pos + nonepos)
+    round(pos_recall, 4)
     neg_precision = true_neg/(true_neg + false_pos)
+    round(neg_precision, 4)
     neg_recall = true_neg/(true_neg + false_neg + noneneg)
-    print(round(accuracy, 4), round(pos_precision, 4), round(pos_recall, 4), round(neg_precision, 4), round(neg_recall, 4))
+    round(neg_recall, 4)
+
 
 def main(argv):
     filename = argv[1]
