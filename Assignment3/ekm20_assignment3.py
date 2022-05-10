@@ -28,7 +28,8 @@ def predict_simplistic(dir):
     true_neg = 0
     false_pos = 0
     false_neg = 0
-    flse = 0
+    nonepos = 0
+    noneneg = 0
     pos = Path('/Users/emma/Downloads/aclImdb/train/pos')
     neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
     pos_file = [f for f in pos.glob('*') if f.is_file]
@@ -53,7 +54,7 @@ def predict_simplistic(dir):
         elif neg_count > pos_count:
             false_pos += 1
         else:
-           flse += 1
+           nonepos += 1
     for filename in neg_file:
         with open(filename, 'r', encoding='utf-8') as f:
             text = f.read()
@@ -74,13 +75,13 @@ def predict_simplistic(dir):
         elif neg_count > pos_count:
             true_neg += 1
         else:
-           flse += 1
-    accuracy = (true_pos + true_neg)/(true_pos + true_neg + false_pos + false_neg + flse)
+           noneneg += 1
+    accuracy = (true_pos + true_neg)/(true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
     pos_precision = true_pos/(true_pos + false_neg)
-    pos_recall = true_pos/(true_pos + false_pos)
+    pos_recall = true_pos/(true_pos + false_pos + nonepos)
     neg_precision = true_neg/(true_neg + false_pos)
-    neg_recall = true_neg/(true_neg + false_neg)
-    print(true_pos, true_neg, false_pos, false_neg, flse)
+    neg_recall = true_neg/(true_neg + false_neg + noneneg)
+    print(true_pos, true_neg, false_pos, false_neg, nonepos, noneneg)
     print(accuracy,pos_precision,pos_recall,neg_precision,neg_recall)
 
 def main(argv):
