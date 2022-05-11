@@ -1,0 +1,35 @@
+Assignment 3 part 4
+Emma Miller
+
+4.(summary): This is clearly a rudimentary analysis, and the biggest flaw with the system is definitely that in looking only for two words, we have neglected somewhere around 3/5 of the data because it doesn't have an excess of 'good' or 'bad' tokens. The simplest solution would be to add more synonyms for good and bad. 
+As far as error analysis goes at the manual level, collocations with 'bad' and sometimes 'good' also mess with the algorithm. 'not good' is still seen as good and 'not bad' is still bad with this system. similarly, 'feel bad' and 'bad person' are very commonly seen together. At the higher narrative level, I saw a pattern in the missed reviews that often (though not exclusively), there was a focus on summarizing things rather than sharing opinions on the content. On the syntactic/semantic level, I noticed that a lot of the misunderstood 'bad' and 'good' tokens, especially in the negative folder, were found in hypothetical/subjunctive constructions. In these constructions, which I feel like could theoretically be identified by a system, bad and good don't refer to the films but to how the films could have done differently or better.
+
+1.
+	1.3192_10: so many synonyms for good in this one-- ten stars, glory, genius, wonderfully, recommended for everyone. 'bad' is used only once in a common phrase used mostly in positive contexts: 'too bad.' like many of the other missed reviews it seems, this review summarizes the film a little more than it reviews it. I think the algorithm kind of expects the topic to be opinions on the movie, not opinions/summaries of what happens in the movie. ectively. The world is expanded upon and the strangeness is contextualized by the retelling, giving us a broader glimpse into growing up weird in vanilla America. Recommended for anyone and everyone!
+
+	2.10135_7: couple things here could have messed with the program. 'good' is used here but only in a hyphenated phrase, so I'm not sure whether the clean text method cleaned it well enough to allow 'good' to be counted. 'bad' is used once, and in a commonly used positive expression: 'feel bad.' this feels like a pretty common juxtaposition that alludes to a well-played character.
+
+	3.1056_10: so many synonyms/semantically related tokens to 'good'. but it uses 'bad' and 'hate' a couple times to consider that many people dislike the film. it's not related to the reviewer's own opinion. not sure how this could be filtered out. there's a lot of devil's advocacy here.
+
+	4.9465_7: this review is honestly pretty neutral, so I am not surprised it was categorized wrong. 'bad' is used once, and only synonyms of 'good' are used. again, the 'bad' is used only in a hypothetical context, so so if that were considered the mistake could probably have been avoided.
+
+	5.11883_8: This is in the positive folder, and in several areas appears positive due to the writer's knowledgeable reflection of the topics in the movie instead of the movie itself. but lots of negative tokens exist to describe the actions of the characters and of the ways in which the movie could have done better (not to describe the movie itself).
+
+	6.1821_4: Like 12383_2, the reviewer admits that some performances were good, and this is what messes up the algorithm. This is also just a fairly positive negative review. One could see this and still think the movie was worth a watch. however, there are negative tokens such as 'uninteresting,' 'muddles,' 'cluttered,' and 'not pulled off.'
+
+	7.12383_2: This would be a harder one to get right looking only for 'good' and 'bad', as 'good' is used twice and thus it's predicted (incorrectly) to be positive. In this instance 'good' is a word used to describe selective performances and reviews. It's possible that others really liked this movie. However, if more words were considered in the negative category, this review would surely be classified correctly as negative. The writer uses the words lame, derivative, clumsily, left, silly, don't like, and uselessly. Those... aren't positive.
+
+	8.2010_3:This has the subjunctive problem--the main verb in the sentence with 'good' is 'could.' This insinuates that the movie did not have a good script or director, but could have been good if it did. If the algorithm went around the hypothetical clauses it would probably be more accurate.
+
+	9.7716_4: This was in the negative folder and predicted to be positive. I see that though it isn't explicitly said to be 'bad,' there are two phrases that likely screwed up the algorithm. first of all, negation is an issue: 'not a good comedy' is stated, but of course we only took the 'good' out of that. I'm sure 'not good' is almost as common as 'bad' in natural language, though. Second, towards the end the subjunctive is used to describe the film as a short, and the writer suggests that this would have been good. however, this good is not describing the actual movie for all intents and purposes.
+	
+	10.4012_4: someone wrote a LOT. this was in the negative folder, but its format is more a summary of the show than a review of it. because of this, anything 'good' or 'bad' was in reference to  actions (e.g. 'good job') and not the show itself. I can see how this would screw up the prediction algorithm. If tokens like 'problem,' 'too much,' and 'annoying' were considered, this would probably have been analyzed as negative. Also--I find it worthwhile to note that a lot of the misclassified reviews are longer. It feels like reviewers may tend towards 'good' and 'bad' in more concise reviews, but in longer ones they will revert to unclassifiable synonyms, more formal language, and even hypotheticals.
+
+2. The precision is remarkably better than the recall because by definition the recall has to account for all the data, and a huge portion of the data returned 'NONE'. Since that was an undesirable result, recall reflects how poorly the algorithm worked in that regard. precision only reflects how well it did with respect to the data it actually labeled with a prediction, which was far more accurate (though not perfect).
+
+3.there are a couple reasons why negative precision was way better than positive. most simply, the reason is that because comparatively few false positives were assigned and therefore negative precision had to be closer to 100%. More complicated would be the analysis that much fewer (about half as many) negative reviews were assigned something other than none. this does make it easier for the data to be incorrect, as the sample isn't quite as large and regulated. Finally, and this is more of a conclusion after looking at the mistaken reviews, there are a lot more synonyms available for good than for bad, and there are also a lot of collocations with bad that messed up what were otherwise positive reviews. Those are the best linguistic reasons I have for why negative precision is so much higher.
+
+
+
+
+
