@@ -82,6 +82,7 @@ def main(argv):
     filename = argv[1]
     # The file that you will read should be passed as the argument to the program.
     prediction = predict_simplistic(dir)
+    return prediction
 
 
 if __name__ == "__main__":

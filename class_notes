@@ -1,3 +1,22 @@
+5/10
+bayes theorem soon
+today: ass3 due, discussing linreg using matrices and vectors (based on other progs
+matrix: one or more vectors together (data frame)
+import numpy to work with matrices
+array([[x, y], [s, n]])
+each sublist is a row by default
+takin notes on matrix multiplication, just the dot product of row a and column b
+notation is AB (matrix names a and b)
+dimensions need to match between matrices
+1. dot product [[1, 2] * [5, 6]]
+look at todays lecture if you need to see this in cmd
+e vector = errors
+x dagger is the pseudoinverse of x
+numpy.linalg.pinv for pseudoinverse
+use scikit-learn for some stats and reg, but it may be clunky (not as good as matlab)
+cool data, respondents look at speech data and determine whether they heard a real word or not
+
+
 5/5
 bayes theorem and data frames in pandas
 trigram - set of 3 words
