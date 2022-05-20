@@ -11,13 +11,12 @@ train_neg = Path('/Users/emma/Downloads/aclImdb/train/neg')
 test_pos = Path('/Users/emma/Downloads/aclImdb/test/pos')
 test_neg = Path('/Users/emma/Downloads/aclImdb/test/neg')
 
-def directory_list(train_pos, train_neg, test_pos, test_neg):
-    train_pos_file = [f for f in train_pos.glob('*') if f.is_file]
-    train_neg_file = [f for f in train_neg.glob('*') if f.is_file]
-    test_pos_file = [f for f in test_pos.glob('*') if f.is_file]
-    test_neg_file = [f for f in test_neg.glob('*') if f.is_file]
-    argv = [train_pos_file, train_neg_file, test_pos_file, test_neg_file]
-    return argv
+def directory_list(argv):
+    argv[1] = [f for f in train_pos.glob('*') if f.is_file]
+    argv[2] = [f for f in train_neg.glob('*') if f.is_file]
+    argv[3] = [f for f in test_pos.glob('*') if f.is_file]
+    argv[4] = [f for f in test_neg.glob('*') if f.is_file]
+    return (argv[1, 2, 3, 4])
 
 # Constants:
 POS = 1
@@ -26,8 +25,12 @@ NEG = 0
 
 def createDataFrame(argv):
     new_filename = "my_imdb_dataframe.csv"
+    for filename in argv:
+        with open(filename, 'r') as f:
+            File = filename
+            Review = f.read()
     # TODO: Create a single dataframe from the 4 IMBD directories (passed as argv[1]--argv[4]).
-    df = pd.DataFrame(argv, columns=['File', 'Label', 'Type', 'Review'])
+    df = pd.DataFrame(argv, columns=[File, Label, Type, Review])
     # For example, "data" can be a LIST OF LISTS.
     # In this case, each list is a set of column values, e.g. ["0_2.txt", "neg", "test", "Once again Mr Costner..."].
     # That is, each list represents a single row in your data frame.
