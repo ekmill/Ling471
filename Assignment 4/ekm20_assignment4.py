@@ -5,13 +5,12 @@ import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
+
 # Constants
 ROUND = 4
 GOOD_REVIEW = 1
 BAD_REVIEW = 0
 ALPHA = 1
-
-
 
 
 # This function will be reporting errors due to variables which were not assigned any value.
@@ -27,9 +26,8 @@ def main(argv):
     # At any rate, make sure you are grabbing the right data! Double check with temporary print statements,
     # e.g. print(test_data.head()).
 
-    test_data = data[:25000]  # Assuming the first 25,000 rows are test data.
+    test_data = data[:25000]
 
-    # Assuming the second 25,000 rows are training data. Double check!
     train_data = data[25000:50000]
 
     # TODO: Set the below 4 variables to contain:
