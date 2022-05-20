@@ -11,16 +11,6 @@ GOOD_REVIEW = 1
 BAD_REVIEW = 0
 ALPHA = 1
 
-accuracy = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
-round(accuracy, ROUND)
-pos_precision = true_pos / (true_pos + false_neg)
-round(pos_precision, ROUND)
-pos_recall = true_pos / (true_pos + false_pos + nonepos)
-round(pos_recall, ROUND)
-neg_precision = true_neg / (true_neg + false_pos)
-round(neg_precision, ROUND)
-neg_recall = true_neg / (true_neg + false_neg + noneneg)
-round(neg_recall, ROUND)
 
 
 
@@ -53,9 +43,6 @@ def main(argv):
 
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
-    # If you are curious, you could read about TF-IDF,
-    # e.g. here: https://www.geeksforgeeks.org/tf-idf-model-for-page-ranking/
-    # or here: https://en.wikipedia.org/wiki/Tf%E2%80%93idf
     # TODO: Add a general brief comment on why choosing which words to count may be important.
     tf_idf_vect = TfidfVectorizer(ngram_range=(1, 2))
     tf_idf_train = tf_idf_vect.fit_transform(X_train.values)
@@ -77,16 +64,13 @@ def main(argv):
     # Note: If you methods there accept lists, you will probably need to cast your pandas label objects to simple python lists:
     # e.g. list(y_train) -- when passing them to your accuracy and precision and recall functions.
 
-    # accuracy_test =
-    # accuracy_train =
-    # precision_pos_test, recall_pos_test =
-    # precision_neg_test, recall_neg_test =
-    # precision_pos_train, recall_pos_train =
-    # precision_neg_train, recall_neg_train =
+    accuracy_test = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
+    accuracy_train = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
+    precision_pos_test, recall_pos_test = true_pos / (true_pos + false_neg), true_pos / (true_pos + false_pos + nonepos)
+    precision_neg_test, recall_neg_test = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg + noneneg)
+    precision_pos_train, recall_pos_train = true_pos / (true_pos + false_neg) true_pos / (true_pos + false_pos + nonepos)
+    precision_neg_train, recall_neg_train = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg + noneneg)
 
-    # Report the metrics via standard output.
-    # Please DO NOT modify the format (for grading purposes).
-    # You may change the variable names of course, if you used different ones above.
 
     print("Train accuracy:           \t{}".format(round(accuracy_train, ROUND)))
     print("Train precision positive: \t{}".format(
