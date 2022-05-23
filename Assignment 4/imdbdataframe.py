@@ -27,8 +27,9 @@ def createDataFrame(argv):
     for filename in pos_train_files:
         with open(filename, 'r', encoding='utf-8') as f:
             file = filename
-            review = cleanFileContents(f)
-            label = 'pos'
+            text = f.read()
+            review = cleanFileContents(text)
+            label = POS
             type = 'train'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in neg_train_files:
@@ -36,7 +37,7 @@ def createDataFrame(argv):
             file = filename
             text = f.read()
             review = cleanFileContents(text)
-            label = 'neg'
+            label = NEG
             type = 'train'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in pos_test_files:
@@ -44,14 +45,15 @@ def createDataFrame(argv):
             file = filename
             text = f.read()
             review = cleanFileContents(text)
-            label = 'pos'
+            label = POS
             type = 'test'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in neg_test_files:
         with open(filename, 'r', encoding='utf-8') as f:
             file = filename
-            review = cleanFileContents(f)
-            label = 'neg'
+            text = f.read()
+            review = cleanFileContents(text)
+            label = NEG
             type = 'test'
             df.loc[len(df.index)] = [file, label, type, review]
     df.to_csv(new_filename)
