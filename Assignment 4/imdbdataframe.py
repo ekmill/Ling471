@@ -12,11 +12,12 @@ test_pos = Path('/Users/emma/Downloads/aclImdb/test/pos')
 test_neg = Path('/Users/emma/Downloads/aclImdb/test/neg')
 
 def directory_list(argv):
-    argv[1] = [f for f in train_pos.glob('*') if f.is_file]
+    my_list = argv[1]
+    my_list [f for f in train_pos.glob('*') if f.is_file]
     argv[2] = [f for f in train_neg.glob('*') if f.is_file]
     argv[3] = [f for f in test_pos.glob('*') if f.is_file]
     argv[4] = [f for f in test_neg.glob('*') if f.is_file]
-    return argv[1, 2, 3, 4]
+    return argv[1: 4]
 
 # Constants:
 POS = 1
@@ -26,7 +27,7 @@ n = 0
 def createDataFrame(argv):
     new_filename = "my_imdb_dataframe.csv"
     column_names = ["file", "label", "type", "review"]
-    df = pd.DataFrame(data=argv[1, 4], columns=column_names)
+    df = pd.DataFrame(data=argv[1:4], columns=column_names)
     for filename in directory_list(argv):
         with open(filename, 'r') as f:
             file = filename
