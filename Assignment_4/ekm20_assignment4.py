@@ -2,6 +2,7 @@ import pandas as pd
 import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
+import csv
 
 
 # Constants
@@ -27,6 +28,10 @@ def recall_precision_accuracy(data):
     train_false_neg = 0
     train_data = data[:25000]
     test_data = data[25000:50000]
+    X_train = train_data
+    y_train = pd.read_csv(X_train, usecols=['type'])
+    X_test = test_data
+    y_test = pd.read_csv(X_test, usecols=['type'])
 
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
@@ -37,35 +42,32 @@ def recall_precision_accuracy(data):
 
     # TODO COMMENT: The hyperparameter alpha is used for Laplace Smoothing.
     # Add a brief comment, trying to explain, in your own words, what smoothing is for.
-    # You may want to read about Laplace smoothing here: https://towardsdatascience.com/laplace-smoothing-in-na%C3%AFve-bayes-algorithm-9c237a8bdece
+    # https://towardsdatascience.com/laplace-smoothing-in-na%C3%AFve-bayes-algorithm-9c237a8bdece
     clf = MultinomialNB(alpha=ALPHA)
     # TODO COMMENT: Add a comment explaining in your own words what the "fit()" method is doing.
     clf.fit(tf_idf_train, y_train)
 
-    # TODO COMMENT: Add a comment explaining in your own words what the "predict()" method is doing in the next two lines.
+    # TODO COMMENT: Add a comment explaining what the "predict()" method is doing in the next two lines.
     y_pred_train = clf.predict(tf_idf_train)
     y_pred_test = clf.predict(tf_idf_test)
-
-    X_train = train_data
-    y_train = pd.read_csv(X_train, usecols=['label', 'type'])
-    X_test = test_data
-    y_test = pd.read_csv(X_test, usecols=['label', 'type'])
-    if y_train(type==0) and y_pred_train(type==0):
-        train_true_neg +=1
-    elif y_train(type==0) and y_pred_train(type==1):
-        train_false_neg +=1
-    elif y_train(type==1) and y_pred_train(type==1):
-        train_true_pos +=1
-    elif y_train(type==1) and y_pred_train(type==0):
-        train_false_pos +=1
-    elif y_test(type==0) and y_pred_test(type==0):
-        test_true_neg +=1
-    elif y_test(type==0) and y_pred_test(type==1):
-        test_false_neg +=1
-    elif y_test(type==1) and y_pred_test(type==1):
-        test_true_pos +=1
-    elif y_test(type==1) and y_pred_test(type==0):
-        test_false_pos +=1
+    for row in X_train:
+        if y_train(type==0) and y_pred_train(type==0):
+            train_true_neg +=1
+        elif y_train(type==0) and y_pred_train(type==1):
+            train_false_neg +=1
+        elif y_train(type==1) and y_pred_train(type==1):
+            train_true_pos +=1
+        elif y_train(type==1) and y_pred_train(type==0):
+            train_false_pos +=1
+    for row in X_test:
+        if y_test(type==0) and y_pred_test(type==0):
+            test_true_neg +=1
+        elif y_test(type==0) and y_pred_test(type==1):
+            test_false_neg +=1
+        elif y_test(type==1) and y_pred_test(type==1):
+            test_true_pos +=1
+        elif y_test(type==1) and y_pred_test(type==0):
+            test_false_pos +=1
 
     accuracy_test = (test_true_pos + test_true_neg) / (test_true_pos + test_true_neg + test_false_pos + test_false_neg)
     accuracy_train = (train_true_pos + train_true_neg) / (train_true_pos + train_true_neg + train_false_pos + train_false_neg)
