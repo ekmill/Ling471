@@ -1,5 +1,4 @@
 import pandas as pd
-import string
 import sys
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -13,35 +12,23 @@ BAD_REVIEW = 0
 ALPHA = 1
 
 
-# This function will be reporting errors due to variables which were not assigned any value.
-# Your task is to get it working! You can comment out things which aren't working at first.
 def main(argv):
-    # Read in the data. NB: You may get an extra Unnamed column with indices; this is OK.
-    # If you like, you can get rid of it by passing a second argument to the read_csv(): index_col=[0].
+    # Read in the data.
     data = pd.read_csv(argv[1])
-    # print(data.head()) # <- Verify the format. Comment this back out once done.
+    # print(data.head())
 
-    # TODO: Change as appropriate, if you stored data differently (e.g. if you put train data first).
-    # You may also make use of the "type" column here instead! E.g. you could sort data by "type".
-    # At any rate, make sure you are grabbing the right data! Double check with temporary print statements,
-    # e.g. print(test_data.head()).
+    train_data = data[:25000]
 
-    test_data = data[:25000]
+    test_data = data[25000:50000]
 
-    train_data = data[25000:50000]
-
-    # TODO: Set the below 4 variables to contain:
-    # X_train: the training data; y_train: the training data labels;
-    # X_test: the test data; y_test: the test data labels.
-    # Access the data frames by the appropriate column names.
-    # X_train =
-    # y_train =
-    # X_test =
-    # y_test =
+    X_train = train_data
+    y_train =  pd.read_csv(X_train, usecols=['label'])
+    X_test = test_data
+    y_test = pd.read_csv(X_test, usecols=['label'])
 
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
-    # TODO: Add a general brief comment on why choosing which words to count may be important.
+    # TODO COMMENT: Add a general brief comment on why choosing which words to count may be important.
     tf_idf_vect = TfidfVectorizer(ngram_range=(1, 2))
     tf_idf_train = tf_idf_vect.fit_transform(X_train.values)
     tf_idf_test = tf_idf_vect.transform(X_test.values)
@@ -71,23 +58,15 @@ def main(argv):
 
 
     print("Train accuracy:           \t{}".format(round(accuracy_train, ROUND)))
-    print("Train precision positive: \t{}".format(
-        round(precision_pos_train, ROUND)))
-    print("Train recall positive:    \t{}".format(
-        round(recall_pos_train, ROUND)))
-    print("Train precision negative: \t{}".format(
-        round(precision_neg_train, ROUND)))
-    print("Train recall negative:    \t{}".format(
-        round(recall_neg_train, ROUND)))
+    print("Train precision positive: \t{}".format(round(precision_pos_train, ROUND)))
+    print("Train recall positive:    \t{}".format(round(recall_pos_train, ROUND)))
+    print("Train precision negative: \t{}".format(round(precision_neg_train, ROUND)))
+    print("Train recall negative:    \t{}".format(round(recall_neg_train, ROUND)))
     print("Test accuracy:            \t{}".format(round(accuracy_test, ROUND)))
-    print("Test precision positive:  \t{}".format(
-        round(precision_pos_test, ROUND)))
-    print("Test recall positive:     \t{}".format(
-        round(recall_pos_test, ROUND)))
-    print("Test precision negative:  \t{}".format(
-        round(precision_neg_test, ROUND)))
-    print("Test recall negative:     \t{}".format(
-        round(recall_neg_test, ROUND)))
+    print("Test precision positive:  \t{}".format(round(precision_pos_test, ROUND)))
+    print("Test recall positive:     \t{}".format(round(recall_pos_test, ROUND)))
+    print("Test precision negative:  \t{}".format(round(precision_neg_test, ROUND)))
+    print("Test recall negative:     \t{}".format(round(recall_neg_test, ROUND)))
 
 
 if __name__ == "__main__":
