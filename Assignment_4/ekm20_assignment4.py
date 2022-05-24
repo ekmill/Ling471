@@ -1,6 +1,5 @@
 import pandas as pd
 import sys
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
@@ -13,23 +12,19 @@ ALPHA = 1
 
 
 def main(argv):
-    # Read in the data.
+    test_true_pos = 0
+    test_true_neg = 0
+    test_false_pos = 0
+    test_false_neg = 0
+    train_true_pos = 0
+    train_true_neg = 0
+    train_false_pos = 0
+    train_false_neg = 0
+
     data = pd.read_csv(argv[1])
     # print(data.head())
-
     train_data = data[:25000]
-
     test_data = data[25000:50000]
-
-    X_train = train_data
-    y_train =  pd.read_csv(X_train, usecols=['label'])
-    X_test = test_data
-    y_test = pd.read_csv(X_test, usecols=['label'])
-
-    true_pos =
-    true_neg =
-    false_pos =
-    false_neg =
 
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
@@ -49,17 +44,34 @@ def main(argv):
     y_pred_train = clf.predict(tf_idf_train)
     y_pred_test = clf.predict(tf_idf_test)
 
-    # TODO: Compute accuracy, precision, and recall, for both train and test data.
-    # Import and call your methods from evaluation.py (or wherever) which you wrote for HW3.
-    # Note: If you methods there accept lists, you will probably need to cast your pandas label objects to simple python lists:
-    # e.g. list(y_train) -- when passing them to your accuracy and precision and recall functions.
+    X_train = train_data
+    y_train =  pd.read_csv(X_train, usecols=['label', 'type'])
+    X_test = test_data
+    y_test = pd.read_csv(X_test, usecols=['label', 'type'])
+    #compare to y_pred_train
+    if y_train(type==0) and y_pred_train(type==0):
+        train_true_neg +=1
+    elif y_train(type==0) and y_pred_train(type==1):
+        train_false_neg +=1
+    elif y_train(type==1) and y_pred_train(type==1):
+        train_true_pos +=1
+    elif y_train(type==1) and y_pred_train(type==0):
+        train_false_pos +=1
+    if y_test(type==0) and y_pred_test(type==0):
+        test_true_neg +=1
+    elif y_test(type==0) and y_pred_test(type==1):
+        test_false_neg +=1
+    elif y_test(type==1) and y_pred_test(type==1):
+        test_true_pos +=1
+    elif y_test(type==1) and y_pred_test(type==0):
+        test_false_pos +=1
 
-    accuracy_test = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg)
-    accuracy_train = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg)
-    precision_pos_test, recall_pos_test = true_pos / (true_pos + false_neg), true_pos / (true_pos + false_pos)
-    precision_neg_test, recall_neg_test = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg)
-    precision_pos_train, recall_pos_train = true_pos / (true_pos + false_neg) true_pos / (true_pos + false_pos)
-    precision_neg_train, recall_neg_train = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg)
+    accuracy_test = (test_true_pos + test_true_neg) / (test_true_pos + test_true_neg + test_false_pos + test_false_neg)
+    accuracy_train = (train_true_pos + train_true_neg) / (train_true_pos + train_true_neg + train_false_pos + train_false_neg)
+    precision_pos_test, recall_pos_test = test_true_pos / (test_true_pos + test_false_neg), test_true_pos / (test_true_pos + test_false_pos)
+    precision_neg_test, recall_neg_test = test_true_neg / (test_true_neg + test_false_pos), test_true_neg / (test_true_neg + test_false_neg)
+    precision_pos_train, recall_pos_train = train_true_pos / (train_true_pos + train_false_neg), train_true_pos / (train_true_pos + train_false_pos)
+    precision_neg_train, recall_neg_train = train_true_neg / (train_true_neg + train_false_pos), train_true_neg / (train_true_neg + train_false_neg)
 
 
     print("Train accuracy:           \t{}".format(round(accuracy_train, ROUND)))
