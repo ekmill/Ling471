@@ -2,8 +2,6 @@ import pandas as pd
 import sys
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
-import csv
-
 
 # Constants
 ROUND = 4
@@ -29,9 +27,9 @@ def recall_precision_accuracy(data):
     train_data = data[:25000]
     test_data = data[25000:50000]
     X_train = train_data
-    y_train = pd.read_csv(X_train, usecols=['type'])
+    y_train = X_train.type
     X_test = test_data
-    y_test = pd.read_csv(X_test, usecols=['type'])
+    y_test = X_test.type
 
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
