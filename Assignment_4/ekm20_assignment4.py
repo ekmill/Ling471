@@ -35,8 +35,8 @@ def recall_precision_accuracy(data):
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
     # TODO COMMENT: Add a general brief comment on why choosing which words to count may be important.
     tf_idf_vect = TfidfVectorizer(ngram_range=(1, 2))
-    tf_idf_train = tf_idf_vect.fit_transform(X_train.values)
-    tf_idf_test = tf_idf_vect.transform(X_test.values)
+    tf_idf_train = tf_idf_vect.fit_transform(X_train)
+    tf_idf_test = tf_idf_vect.transform(X_test)
 
     # TODO COMMENT: The hyperparameter alpha is used for Laplace Smoothing.
     # Add a brief comment, trying to explain, in your own words, what smoothing is for.
