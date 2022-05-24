@@ -6,10 +6,10 @@ import re
 from pathlib import Path
 
 
-pos_train = Path('Assignment_4/aclImdb/train/pos')
-neg_train = Path('Assignment_4/aclImdb/train/neg')
-pos_test = Path('Assignment_4/aclImdb/test/pos')
-neg_test = Path('Assignment_4/aclImdb/test/neg')
+pos_train = Path('../aclImdb/train/pos')
+neg_train = Path('../aclImdb/train/neg')
+pos_test = Path('../aclImdb/test/pos')
+neg_test = Path('../aclImdb/test/neg')
 
 
 # Constants:
@@ -17,8 +17,8 @@ POS = 1
 NEG = 0
 
 
-def createDataFrame(argv):
-    pos_train_files = [f for f in pos_train.glob('*') if f.is_file]
+def createDataFrame():
+    pos_train_files = [f for f in pos_train.glob('*') if f.is_file()]
     neg_train_files = [f for f in neg_train.glob('*') if f.is_file]
     pos_test_files = [f for f in pos_test.glob('*') if f.is_file]
     neg_test_files = [f for f in neg_test.glob('*') if f.is_file]
@@ -28,37 +28,32 @@ def createDataFrame(argv):
     for filename in pos_train_files:
         with open(filename, 'r') as f:
             file = filename
-            text = f.read()
-            review = cleanFileContents(text)
+            review = cleanFileContents(filename)
             label = POS
             type = 'train'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in neg_train_files:
         with open(filename, 'r') as f:
             file = filename
-            text = f.read()
-            review = cleanFileContents(text)
+            review = cleanFileContents(filename)
             label = NEG
             type = 'train'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in pos_test_files:
         with open(filename, 'r') as f:
             file = filename
-            text = f.read()
-            review = cleanFileContents(text)
+            review = cleanFileContents(filename)
             label = POS
             type = 'test'
             df.loc[len(df.index)] = [file, label, type, review]
     for filename in neg_test_files:
         with open(filename, 'r') as f:
             file = filename
-            text = f.read()
-            review = cleanFileContents(text)
+            review = cleanFileContents(filename)
             label = NEG
             type = 'test'
             df.loc[len(df.index)] = [file, label, type, review]
     df.to_csv(new_filename)
-    print(df)
 
 
 def cleanFileContents(f):
@@ -70,7 +65,7 @@ def cleanFileContents(f):
 
 
 def main(argv):
-    createDataFrame(argv)
+    createDataFrame()
 
 
 if __name__ == "__main__":
