@@ -26,6 +26,11 @@ def main(argv):
     X_test = test_data
     y_test = pd.read_csv(X_test, usecols=['label'])
 
+    true_pos =
+    true_neg =
+    false_pos =
+    false_neg =
+
     # The next three lines are performing feature extraction and word counting.
     # They are choosing which words to count frequencies for, basically, to discard some of the noise.
     # TODO COMMENT: Add a general brief comment on why choosing which words to count may be important.
@@ -49,12 +54,12 @@ def main(argv):
     # Note: If you methods there accept lists, you will probably need to cast your pandas label objects to simple python lists:
     # e.g. list(y_train) -- when passing them to your accuracy and precision and recall functions.
 
-    accuracy_test = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
-    accuracy_train = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg + noneneg + nonepos)
-    precision_pos_test, recall_pos_test = true_pos / (true_pos + false_neg), true_pos / (true_pos + false_pos + nonepos)
-    precision_neg_test, recall_neg_test = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg + noneneg)
-    precision_pos_train, recall_pos_train = true_pos / (true_pos + false_neg) true_pos / (true_pos + false_pos + nonepos)
-    precision_neg_train, recall_neg_train = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg + noneneg)
+    accuracy_test = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg)
+    accuracy_train = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg)
+    precision_pos_test, recall_pos_test = true_pos / (true_pos + false_neg), true_pos / (true_pos + false_pos)
+    precision_neg_test, recall_neg_test = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg)
+    precision_pos_train, recall_pos_train = true_pos / (true_pos + false_neg) true_pos / (true_pos + false_pos)
+    precision_neg_train, recall_neg_train = true_neg / (true_neg + false_pos), true_neg / (true_neg + false_neg)
 
 
     print("Train accuracy:           \t{}".format(round(accuracy_train, ROUND)))
