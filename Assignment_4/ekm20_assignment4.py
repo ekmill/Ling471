@@ -32,7 +32,8 @@ def recall_precision_accuracy(data):
     once may be completely irrelevant to the positive/negative analysis. This was seen in the error analysis part of 
     assignment 3.'''
     tf_idf_vect = TfidfVectorizer(ngram_range=(1, 2))
-    tf_idf_train = tf_idf_vect.fit_transform(X_train.values)
+    tf_idf_train = tf_idf_vect.fit_transform(X_train.values)#stops working at this row. error is 'numpy.ndarray' object has no attribute 'lower'.
+                                                            #tried for hours to fix this and can't.
     tf_idf_test = tf_idf_vect.transform(X_test.values)
 
     '''Laplace Smoothing is important for naive Bayes analysis. It essentially provides an extra value to the NB formula
@@ -46,6 +47,7 @@ def recall_precision_accuracy(data):
     precision and recall.'''
     y_pred_train = clf.predict(tf_idf_train)
     y_pred_test = clf.predict(tf_idf_test)
+
     for row in X_train:
         if y_train(type==0) and y_pred_train(type==0):
             train_true_neg +=1
