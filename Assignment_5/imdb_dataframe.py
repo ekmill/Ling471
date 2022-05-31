@@ -1,7 +1,3 @@
-# Olga Zamaraeva's solution for Assignment 3 from Ling471 Spring 2021.
-# Copyright Olga Zamaraeva, 2021
-#
-# Updated by Matthew C. Kelley, 2022
 
 import sys
 import re
@@ -17,6 +13,7 @@ from nltk.corpus import stopwords
 from nltk import stem
 from nltk.stem import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
+
 
 # Constants:
 POS = 1
@@ -66,33 +63,50 @@ def processFileForDF(f, table, label, t):
 
 
 def createDataFrames(argv):
-    train_pos = list(Path(argv[1]).glob("*.txt"))
-    train_neg = list(Path(argv[2]).glob("*.txt"))
-    test_pos = list(Path(argv[3]).glob("*.txt"))
-    test_neg = list(Path(argv[4]).glob("*.txt"))
+    train_pos = list(Path(argv[0]).glob("*.txt"))
+    train_neg = list(Path(argv[1]).glob("*.txt"))
+    test_pos = list(Path(argv[2]).glob("*.txt"))
+    test_neg = list(Path(argv[3]).glob("*.txt"))
+
+    new_filename = "my_imdb_expanded.csv"
+    column_names = ["file", "label", "type", "review"]
+    df = pd.DataFrame(columns=column_names)
+    for filename in train_pos:
+        with open(filename, 'r') as f:
+            file = filename
+            review = cleanFileContents(filename)
+            label = POS
+            type = 'train'
+            df.loc[len(df.index)] = [file, label, type, review]
+    for filename in train_neg:
+        with open(filename, 'r') as f:
+            file = filename
+            review = cleanFileContents(filename)
+            label = NEG
+            type = 'train'
+            df.loc[len(df.index)] = [file, label, type, review]
+    for filename in test_pos:
+        with open(filename, 'r') as f:
+            file = filename
+            review = cleanFileContents(filename)
+            label = POS
+            type = 'test'
+            df.loc[len(df.index)] = [file, label, type, review]
+    for filename in test_neg:
+        with open(filename, 'r') as f:
+            file = filename
+            review = cleanFileContents(filename)
+            label = NEG
+            type = 'test'
+            df.loc[len(df.index)] = [file, label, type, review]
 
     data = []
 
-    # TODO: Your function from assignment 4, adapted for assignment 5 as needed, goes here.
-    # Do all the required preprocerssing.
-    #
-    # TODO: The program will now be noticeably slower!
-    # To reassure yourself that the program is doing something, insert print statements as progress indicators.
-    # For example, for each 100th file, print out something like:
-    # "Processing directory 1 out of 4; file 99 out of 12500".
-    # The enumerate method iterates over both the items in the list and their indices, at the same time.
-    # Step through in the debugger to see what i and f are at step 1, step 2, and so forth.
-
-    # Your code goes here... Example of how to get not only a list element but also its index, below:
-    # for index, element in enumerate(['a','b','c','d']):
-    #    print("{}'s index is {}".format(element,index))
-
-    # Use the below column names if you like:
     column_names = ["file", "label", "type", "review",
                     "cleaned_review", "lowercased", "no stopwords", "lemmatized"]
     df = pd.DataFrame(data=data, columns=column_names)
     df.sort_values(by=['type', 'file'])
-    df.to_csv('my_imdb_expanded.csv')
+    df.to_csv(new_filename)
 
 
 def main(argv):

@@ -1,5 +1,4 @@
 import pandas as pd
-import nltk
 import string
 import os
 import sys
