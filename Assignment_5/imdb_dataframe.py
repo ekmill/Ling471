@@ -63,10 +63,14 @@ def processFileForDF(f, table, label, t):
 
 
 def createDataFrames(argv):
-    train_pos = list(Path(argv[0]).glob("*.txt"))
-    train_neg = list(Path(argv[1]).glob("*.txt"))
-    test_pos = list(Path(argv[2]).glob("*.txt"))
-    test_neg = list(Path(argv[3]).glob("*.txt"))
+    argv[1] = Path('../aclImdb/train/pos')
+    argv[2] = Path('../aclImdb/train/neg')
+    argv[3] = Path('../aclImdb/test/pos')
+    argv[4] = Path('../aclImdb/test/neg')
+    train_pos = list(Path(argv[1]).glob("*.txt"))
+    train_neg = list(Path(argv[2]).glob("*.txt"))
+    test_pos = list(Path(argv[3]).glob("*.txt"))
+    test_neg = list(Path(argv[4]).glob("*.txt"))
 
     new_filename = "my_imdb_expanded.csv"
     column_names = ["file", "label", "type", "review"]
