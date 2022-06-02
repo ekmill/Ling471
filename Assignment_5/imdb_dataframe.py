@@ -14,19 +14,18 @@ from nltk import stem
 from nltk.stem import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 
-
 # Constants:
 POS = 1
 NEG = 0
 
 
-def review_to_words(review, remove_stopwords=False, lemmatize=False):
+def review_to_words(t, remove_stopwords=False, lemmatize=False):#fix review so it opens and is passed to beautifulsoup
     # Getting an off-the-shelf list of English "stopwords"
     stops = stopwords.words('english')
     # Initializing an instance of the NLTK stemmer/lemmatizer class
     sno = stem.SnowballStemmer('english')
     # Removing HTML using BeautifulSoup preprocessing package
-    review_text = BeautifulSoup(review).get_text()
+    review_text = BeautifulSoup(t, "html.parser").get_text()
     # Remove non-letters using a regular expression
     review_text = re.sub("[^a-zA-Z]", " ", review_text)
     # Tokenizing by whitespace
@@ -46,8 +45,8 @@ def review_to_words(review, remove_stopwords=False, lemmatize=False):
         return ' '.join(words)
 
 
-def cleanFileContents(f):
-    with open(f, 'r', encoding='utf-8') as f:
+def cleanFileContents(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
         text = f.read()
     cleaned_text = review_to_words(text)
     lowercased = cleaned_text.lower()
@@ -63,52 +62,53 @@ def processFileForDF(f, table, label, t):
 
 
 def createDataFrames(argv):
-    argv[1] = Path('../aclImdb/train/pos')
-    argv[2] = Path('../aclImdb/train/neg')
-    argv[3] = Path('../aclImdb/test/pos')
-    argv[4] = Path('../aclImdb/test/neg')
+
+    data = []
+    column_names = ["file", "label", "type", "review",
+                    "cleaned_review", "lowercased", "no stopwords", "lemmatized"]
+    df = pd.DataFrame(data=data, columns=column_names)
+
     train_pos = list(Path(argv[1]).glob("*.txt"))
     train_neg = list(Path(argv[2]).glob("*.txt"))
     test_pos = list(Path(argv[3]).glob("*.txt"))
     test_neg = list(Path(argv[4]).glob("*.txt"))
-
+    index = 0
+    if index % 100 == 0:
+        print("index is {}".format(index))
     new_filename = "my_imdb_expanded.csv"
-    column_names = ["file", "label", "type", "review"]
-    df = pd.DataFrame(columns=column_names)
     for filename in train_pos:
+        index +=1
         with open(filename, 'r') as f:
             file = filename
-            review = cleanFileContents(filename)
+            t = cleanFileContents(filename)
             label = POS
             type = 'train'
-            df.loc[len(df.index)] = [file, label, type, review]
+            df.loc[len(df.index)] = [file, label, type, t]
     for filename in train_neg:
+        index += 1
         with open(filename, 'r') as f:
             file = filename
-            review = cleanFileContents(filename)
+            t = cleanFileContents(f)
             label = NEG
             type = 'train'
-            df.loc[len(df.index)] = [file, label, type, review]
+            df.loc[len(df.index)] = [file, label, type, t]
     for filename in test_pos:
+        index += 1
         with open(filename, 'r') as f:
             file = filename
-            review = cleanFileContents(filename)
+            t = cleanFileContents(f)
             label = POS
             type = 'test'
-            df.loc[len(df.index)] = [file, label, type, review]
+            df.loc[len(df.index)] = [file, label, type, t]
     for filename in test_neg:
+        index += 1
         with open(filename, 'r') as f:
             file = filename
-            review = cleanFileContents(filename)
+            t = cleanFileContents(filename)
             label = NEG
             type = 'test'
-            df.loc[len(df.index)] = [file, label, type, review]
+            df.loc[len(df.index)] = [file, label, type, t]
 
-    data = []
-
-    column_names = ["file", "label", "type", "review",
-                    "cleaned_review", "lowercased", "no stopwords", "lemmatized"]
-    df = pd.DataFrame(data=data, columns=column_names)
     df.sort_values(by=['type', 'file'])
     df.to_csv(new_filename)
 
