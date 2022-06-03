@@ -45,8 +45,8 @@ def review_to_words(t, remove_stopwords=False, lemmatize=False):#fix review so i
         return ' '.join(words)
 
 
-def cleanFileContents(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
+def cleanFileContents(f):
+    with open(f, 'r', encoding='utf-8') as f:
         text = f.read()
     cleaned_text = review_to_words(text)
     lowercased = cleaned_text.lower()
@@ -57,7 +57,7 @@ def cleanFileContents(filename):
 
 def processFileForDF(filename, df, label, t):
     text, cleaned_text, lowercased, no_stop, lemmatized = cleanFileContents(filename)
-    df.append([filename, label, t, text,
+    df.loc[len(df.index)] = ([filename, label, t, text,
                  cleaned_text, lowercased, no_stop, lemmatized])
 
 
@@ -85,6 +85,7 @@ def createDataFrames(argv):
             processFileForDF(filename, df, label, t)
             if index % 100 == 0:
                 print("index of {} is {} out of {}".format([label, type], index, len(train_pos)))
+
     index = 0
     for filename in train_neg:
         index += 1
@@ -118,7 +119,6 @@ def createDataFrames(argv):
             processFileForDF(filename, df, label, t)
             if index % 100 == 0:
                 print("index of {} is {} out of {}".format([label, type], index, len(test_neg)))
-
     df.sort_values(by=['type', 'file'])
     df.to_csv(new_filename)
 
