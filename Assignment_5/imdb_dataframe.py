@@ -55,9 +55,9 @@ def cleanFileContents(filename):
     return (text, cleaned_text, lowercased, no_stop, lemmatized)
 
 
-def processFileForDF(f, table, label, t):
-    text, cleaned_text, lowercased, no_stop, lemmatized = cleanFileContents(f)
-    table.append([f.stem+'.txt', label, t, text,
+def processFileForDF(filename, df, label, t):
+    text, cleaned_text, lowercased, no_stop, lemmatized = cleanFileContents(filename)
+    df.append([filename, label, t, text,
                  cleaned_text, lowercased, no_stop, lemmatized])
 
 
@@ -73,8 +73,7 @@ def createDataFrames(argv):
     test_pos = list(Path(argv[3]).glob("*.txt"))
     test_neg = list(Path(argv[4]).glob("*.txt"))
     index = 0
-    if index % 100 == 0:
-        print("index is {}".format(index))
+
     new_filename = "my_imdb_expanded.csv"
     for filename in train_pos:
         index +=1
@@ -83,23 +82,32 @@ def createDataFrames(argv):
             t = cleanFileContents(filename)
             label = POS
             type = 'train'
-            df.loc[len(df.index)] = [file, label, type, t]
+            processFileForDF(filename, df, label, t)
+            if index % 100 == 0:
+                print("index of {} is {} out of {}".format([label, type], index, len(train_pos)))
+    index = 0
     for filename in train_neg:
         index += 1
         with open(filename, 'r') as f:
             file = filename
-            t = cleanFileContents(f)
+            t = cleanFileContents(filename)
             label = NEG
             type = 'train'
-            df.loc[len(df.index)] = [file, label, type, t]
+            processFileForDF(filename, df, label, t)
+            if index % 100 == 0:
+                print("index of {} is {} out of {}".format([label, type], index, len(train_neg)))
+    index = 0
     for filename in test_pos:
         index += 1
         with open(filename, 'r') as f:
             file = filename
-            t = cleanFileContents(f)
+            t = cleanFileContents(filename)
             label = POS
             type = 'test'
-            df.loc[len(df.index)] = [file, label, type, t]
+            processFileForDF(filename, df, label, t)
+            if index % 100 == 0:
+                print("index of {} is {} out of {}".format([label, type], index, len(test_pos)))
+    index = 0
     for filename in test_neg:
         index += 1
         with open(filename, 'r') as f:
@@ -107,7 +115,9 @@ def createDataFrames(argv):
             t = cleanFileContents(filename)
             label = NEG
             type = 'test'
-            df.loc[len(df.index)] = [file, label, type, t]
+            processFileForDF(filename, df, label, t)
+            if index % 100 == 0:
+                print("index of {} is {} out of {}".format([label, type], index, len(test_neg)))
 
     df.sort_values(by=['type', 'file'])
     df.to_csv(new_filename)
