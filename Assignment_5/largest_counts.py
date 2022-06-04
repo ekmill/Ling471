@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-
+from operator import itemgetter
 
 def countTokens(text):
     token_counts = {}
@@ -9,15 +9,8 @@ def countTokens(text):
         if word not in token_counts:
             token_counts[word] = 0
         token_counts[word] += 1
-    updated_token_counts = sorted(token_counts, reverse=True)
-    problem_solver = {}
-    for index in range(len(updated_token_counts) - 2):
-        if index % 2:
-            problem_solver[updated_token_counts[index]] = updated_token_counts[index + 2]
-    for index in range(len(updated_token_counts) - 2):
-        if not index % 2:
-            problem_solver[updated_token_counts[index]] = updated_token_counts[index + 2]
-    return problem_solver
+        token_counts.get(word, token_counts[word])
+    return dict(sorted(token_counts.items(), key=itemgetter(1), reverse=True))
 
 
 def largest_counts(data):
