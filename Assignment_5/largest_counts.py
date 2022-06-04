@@ -6,26 +6,24 @@ def countTokens(text):
     token_counts = {}
     tokens = text.split(' ')
     for word in tokens:
-        if not word in token_counts:
+        if word not in token_counts:
             token_counts[word] = 0
         token_counts[word] += 1
-    return token_counts
+    updated_token_counts = sorted(token_counts, reverse=True)
+    problem_solver = {}
+    for index in range(len(updated_token_counts) - 2):
+        if index % 2:
+            problem_solver[updated_token_counts[index]] = updated_token_counts[index + 2]
+    for index in range(len(updated_token_counts) - 2):
+        if not index % 2:
+            problem_solver[updated_token_counts[index]] = updated_token_counts[index + 2]
+    return problem_solver
 
 
 def largest_counts(data):
     pos_train_data = data[:12500]
     neg_train_data = data[12500:25000]
 
-    # TODO: SORT the count dicts which countTokens() returns
-    # by value (count) in reverse (descending) order.
-    # It is your task to Google and learn how to do this, but we will help of course,
-    # if you come to use with questions. This can be daunting at first, but give it time.
-    # Spend some (reasonable) time across a few days if necessary, and you will do it!
-
-    # As is, the counts returned by the counter AREN'T sorted!
-    # So you won't be able to easily retrieve the most frequent words.
-
-    # NB: str.cat() turns whole column into one text
     train_counts_pos_original = countTokens(pos_train_data["review"].str.cat())
     train_counts_pos_cleaned = countTokens(
         pos_train_data["cleaned_review"].str.cat())
@@ -44,7 +42,6 @@ def largest_counts(data):
         neg_train_data["no stopwords"].str.cat())
     train_counts_neg_lemmatized = countTokens(
         neg_train_data["lemmatized"].str.cat())
-
 
     with open('counts.txt', 'w') as f:
         f.write('Original POS reviews:\n')
