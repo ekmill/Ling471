@@ -14,6 +14,7 @@ from nltk import stem
 from nltk.stem import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 
+
 # Constants:
 POS = 1
 NEG = 0
@@ -62,7 +63,6 @@ def processFileForDF(filename, df, label, t):
 
 
 def createDataFrames(argv):
-
     data = []
     column_names = ["file", "label", "type", "review",
                     "cleaned_review", "lowercased", "no stopwords", "lemmatized"]

@@ -2,6 +2,7 @@ import sys
 import pandas as pd
 from operator import itemgetter
 
+
 def countTokens(text):
     token_counts = {}
     tokens = text.split(' ')
@@ -67,9 +68,6 @@ def largest_counts(data):
         f.write('Lemmatized NEG reviews:\n')
         for k, v in list(train_counts_neg_lemmatized.items())[:20]:
             f.write('{}\t{}\n'.format(k, v))
-
-    # TODO: Copy the output of the above print statements
-    #  into your document/report, or otherwise create a table/visualization for these counts.
 
 
 def main(argv):
